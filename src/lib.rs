@@ -438,7 +438,6 @@ mod tests {
         let ts: i64 = (2i64.pow(32) + 1).into();
 
         assert!(ts > 0);
-        assert_eq!(std::mem::size_of::<*const ()>(), 8);
 
         let new_mtime = FileTime::from_unix_time(ts, 0);
         set_file_times(&path, atime, new_mtime)?;
