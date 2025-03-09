@@ -34,10 +34,10 @@ jobs:
     - uses: actions/checkout@master
     - name: Install Rust (rustup)
       run: |
-       rustup target add i686-unknown-linux-musl
+       rustup target add i686-unknown-linux-gnu
        rustup update ${{ matrix.rust }} --no-self-update && rustup default ${{ matrix.rust }}
       shell: bash
-    - run: cargo test --target=i686-unknown-linux-musl
+    - run: cargo test --target=i686-unknown-linux-gnu
 
   rustfmt:
     name: Rustfmt
