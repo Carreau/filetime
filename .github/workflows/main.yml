@@ -33,7 +33,9 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Install Rust (rustup)
-      run: rustup update ${{ matrix.rust }} --no-self-update && rustup default ${{ matrix.rust }}
+      run: |
+       rustup target add i686-unknown-linux-musl
+       rustup update ${{ matrix.rust }} --no-self-update && rustup default ${{ matrix.rust }}
       shell: bash
     - run: cargo test
 
