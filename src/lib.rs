@@ -79,14 +79,7 @@ impl FileTime {
     }
 
     const fn emulate_second_only_system(self) -> FileTime {
-        if cfg!(emulate_second_only_system) {
-            FileTime {
-                seconds: self.seconds,
-                nanos: 0,
-            }
-        } else {
-            self
-        }
+        self
     }
 
     /// Creates a new timestamp representing the current system time.
