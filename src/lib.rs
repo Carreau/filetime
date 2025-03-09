@@ -34,6 +34,7 @@
 //! println!("{}", mtime.seconds());
 //! ```
 
+use std::convert::TryInto;
 use std::fmt;
 use std::fs;
 use std::io;
@@ -58,7 +59,7 @@ cfg_if::cfg_if! {
 
 /// A helper structure to represent a timestamp for a file.
 ///
-/// The actual value contined within is platform-specific and does not have the
+/// The actual value contained within is platform-specific and does not have the
 /// same meaning across platforms, but comparisons and stringification can be
 /// significant among the same platform.
 #[derive(Eq, PartialEq, Ord, PartialOrd, Debug, Copy, Clone, Hash)]
@@ -434,7 +435,11 @@ mod tests {
         let atime = FileTime::from_last_access_time(&metadata);
         set_file_times(&path, atime, mtime)?;
 
-        let new_mtime = FileTime::from_unix_time(10_000, 0);
+        let ts: i64 = (2i64.pow(32) + 1).into();
+
+        assert!(ts > 0);
+
+        let new_mtime = FileTime::from_unix_time(ts, 0);
         set_file_times(&path, atime, new_mtime)?;
 
         let metadata = fs::metadata(&path)?;
