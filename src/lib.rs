@@ -34,7 +34,6 @@
 //! println!("{}", mtime.seconds());
 //! ```
 
-use std::convert::TryInto;
 use std::fmt;
 use std::fs;
 use std::io;
@@ -435,7 +434,7 @@ mod tests {
         let atime = FileTime::from_last_access_time(&metadata);
         set_file_times(&path, atime, mtime)?;
 
-        let ts: i64 = (2i64.pow(32) + 1).into();
+        let ts: i64 = 4_294_967_297;
 
         assert!(ts > 0);
 
